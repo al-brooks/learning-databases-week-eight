@@ -10,6 +10,10 @@
 --   	is_published BOOLEAN DEFAULT FALSE
 -- )
 
+-- complete:  Select all posts:
+-- SELECT* 
+-- FROM blog_posts
+
 -- complete:  Create Users Table
 
 -- code-block: |
@@ -41,7 +45,17 @@
 --   ('milly', 'testertwo', 'tester-two', 'test2@gmail.com')
 
 
-
+-- note:  sample join statement
+-- code-block: |
+-- SELECT
+-- users.user_id,
+-- users.first_name,
+-- users.last_name,
+-- posts.title,
+-- posts.body,
+-- posts.date_created
+-- FROM blog_users as users
+-- INNER JOIN blog_posts as posts ON users.user_id = posts.user_id
 
 
 
