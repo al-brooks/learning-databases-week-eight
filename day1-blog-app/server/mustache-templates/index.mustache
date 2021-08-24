@@ -27,6 +27,14 @@
     <ul>
         {{#posts}}
         <li>{{title}}: {{body}}
+        <form method="POST" action="/post-detail">
+            <input 
+                type="hidden"
+                value={{post_id}}
+                name="post_id"
+            />
+            <button>update</button>
+        </form>
         <form method="POST" action="/delete-post">
             <input 
                 type="hidden"
