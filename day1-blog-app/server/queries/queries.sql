@@ -14,6 +14,11 @@
 -- SELECT* 
 -- FROM blog_posts
 
+-- complete:  Add a post:
+-- insert into blog_posts just have user_id be the default value of 1
+-- INSERT INTO blog_posts(title, body, is_published, user_id)
+-- VALUES ('Go to mall', 'Buy face wash', true, 2)
+
 -- complete:  Create Users Table
 
 -- code-block: |

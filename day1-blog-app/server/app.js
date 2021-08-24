@@ -33,9 +33,11 @@ app.set('view engine', 'mustache');
 
 // get all posts
 app.get('/', (req, res) => {
-  db.any('SELECT title, body FROM blog_posts').then((posts) => {
-    res.render('index', { posts: posts });
-  });
+  db.any('SELECT title, body, post_id, user_id FROM blog_posts').then(
+    (posts) => {
+      res.render('index', { posts: posts });
+    }
+  );
 });
 
 app.post('/add-post', (req, res) => {
@@ -48,6 +50,14 @@ app.post('/add-post', (req, res) => {
     'INSERT INTO blog_posts(title, body, is_published, user_id) VALUES($1, $2, $3, $4)',
     [title, body, true, 1]
   ).then(() => {
+    res.redirect('/');
+  });
+});
+
+app.post('/delete-post', (req, res) => {
+  const post_id = parseInt(req.body.post_id);
+
+  db.none('DELETE FROM blog_posts WHERE post_id=$1', [post_id]).then(() => {
     res.redirect('/');
   });
 });

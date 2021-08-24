@@ -26,7 +26,16 @@
     <h1>List all posts:</h1>
     <ul>
         {{#posts}}
-        <li>{{title}}: {{body}}</li>
+        <li>{{title}}: {{body}}
+        <form method="POST" action="/delete-post">
+            <input 
+                type="hidden"
+                value={{post_id}}
+                name="post_id"
+            />
+            <button>x</button>
+        </form>
+        </li>
         {{/posts}}
     </ul>
     
