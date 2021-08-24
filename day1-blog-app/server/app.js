@@ -13,6 +13,8 @@ const connectionString =
   'postgres://otzxnfsj:DvGvZk9BrTYjSXmD9XFf6GT5VAlk69U-@chunee.db.elephantsql.com/otzxnfsj';
 // set database object
 const db = pgp(connectionString);
+const postsRouter = require('./routers/posts');
+const usersRouter = require('./routers/users');
 
 // set express to parse body
 app.use(express.urlencoded({ extended: true }));
@@ -26,9 +28,13 @@ app.use(
   })
 );
 
+// set routers
+app.use('/posts', postsRouter);
+app.use('/users', usersRouter);
+
 // set mustache for template engine
 app.engine('mustache', mustacheExpress());
-app.set('views', './mustache-templates');
+app.set('views', './templates');
 app.set('view engine', 'mustache');
 
 // get all posts
