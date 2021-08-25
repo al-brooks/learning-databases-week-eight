@@ -1,14 +1,4 @@
--- complete:  Create Posts Table
 
--- code-block: |
--- CREATE TABLE blog_posts (
--- 	    post_id SERIAL PRIMARY KEY,
---   	title VARCHAR(200),
---   	body TEXT,
---   	date_created timestamp DEFAULT current_timestamp,
---   	date_updated timestamp DEFAULT current_timestamp,
---   	is_published BOOLEAN DEFAULT FALSE
--- )
 
 -- complete:  Select all posts:
 -- SELECT* 
@@ -19,48 +9,56 @@
 -- INSERT INTO blog_posts(title, body, is_published, user_id)
 -- VALUES ('Go to mall', 'Buy face wash', true, 2)
 
--- complete:  Create Users Table
+-- New Database Queries
 
--- code-block: |
--- CREATE TABLE blog_users (
--- 	    user_id SERIAL PRIMARY KEY,
---   	first_name VARCHAR(20),
---   	last_name VARCHAR(30),
---   	user_name TEXT UNIQUE,
---   	user_email TEXT UNIQUE
--- )
+-- create blog_users table
+CREATE TABLE blog_users (
+	user_id SERIAL PRIMARY KEY,
+  	first_name VARCHAR(20),
+  	last_name VARCHAR(30),
+  	user_name TEXT UNIQUE,
+  	user_email TEXT UNIQUE,
+  	user_password VARCHAR(300)
+)
 
- -- complete:  Adding in Foreign Key to blog_posts
+-- create blog_posts table
+CREATE TABLE blog_posts (
+	post_id SERIAL PRIMARY KEY,
+  	title VARCHAR(200),
+  	body TEXT,
+  	date_created timestamp DEFAULT current_timestamp,
+  	date_updated timestamp DEFAULT current_timestamp,
+  	is_published BOOLEAN DEFAULT FALSE,
+    user_id INTEGER REFERENCES blog_users (user_id) ON DELETE CASCADE
+)
 
--- code-block: |
--- ALTER TABLE blog_posts
--- ADD COLUMN user_id INTEGER REFERENCES blog_users (user_id)
+-- create blog_comments table
+CREATE TABLE blog_comments (
+	comment_id SERIAL PRIMARY KEY,
+  	title VARCHAR(200),
+  	body TEXT,
+  	date_created timestamp DEFAULT current_timestamp,
+  	date_updated timestamp DEFAULT current_timestamp,
+  	is_published BOOLEAN DEFAULT FALSE,
+    post_id INTEGER REFERENCES blog_posts (post_id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES blog_users (user_id) ON DELETE CASCADE
+)
 
--- complete:  Insert test users via SQL
-
--- code-block: |
--- INSERT INTO blog_users(
---   	first_name,
---   	last_name,
---   	user_name,
---   	user_email
---   )
---   VALUES
---   ('james', 'testerone', 'tester-one', 'test1@gmail.com'),
---   ('milly', 'testertwo', 'tester-two', 'test2@gmail.com')
-
-
--- note:  sample join statement
--- code-block: |
--- SELECT
--- users.user_id,
--- users.first_name,
--- users.last_name,
--- posts.title,
--- posts.body,
--- posts.date_created
--- FROM blog_users as users
--- INNER JOIN blog_posts as posts ON users.user_id = posts.user_id
-
-
-
+-- create test users (no passwords for now)
+INSERT INTO blog_users(
+  	first_name,
+  	last_name,
+  	user_name,
+  	user_email
+  )
+VALUES
+('james', 'testerone', 'tester-one', 'test1@gmail.com'),
+('milly', 'testertwo', 'tester-two', 'test2@gmail.com')
+  
+-- create test posts (based on test users)
+INSERT INTO blog_posts(title, body, is_published, user_id)
+VALUES
+('Hiking', 'Beautiful views', true, 1),
+('Got a new puppy!', 'Welcome to the family :)', true, 2),
+('New workout', 'I"ll get it down eventually', true, 2),
+('New city, who this?', 'Call me senora LA', true, 1)

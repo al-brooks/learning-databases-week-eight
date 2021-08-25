@@ -6,11 +6,12 @@ const app = express();
 const session = require('express-session');
 // npm install mustache - express
 const mustacheExpress = require('mustache-express');
+// npm install dotenv
+require('dotenv').config();
 // npm install pg-promise
 const pgp = require('pg-promise')();
 // set connection for pg-promise object
-const connectionString =
-  'postgres://otzxnfsj:DvGvZk9BrTYjSXmD9XFf6GT5VAlk69U-@chunee.db.elephantsql.com/otzxnfsj';
+const connectionString = process.env.DB_CONNECT;
 // set database object
 global.db = pgp(connectionString);
 const postsRouter = require('./routers/posts');
@@ -22,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 // set session middleware
 app.use(
   session({
-    secret: 'FreeFoodForSecretKey',
+    secret: process.env.SECRET_KEY,
     saveUninitialized: true,
     resave: true
   })
