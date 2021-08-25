@@ -7,12 +7,14 @@
     <title>Post Details</title>
 </head>
 <body>
+    <a href="./">home</a>
+    <a href="/">posts page</a>
     <h1>update post!</h1>
     {{#post}}
     <div>
     {{title}} - {{body}}
     <div>
-    <form method="POST" action="/update-post">
+    <form method="POST" action="/posts/update-post">
     <input 
         type="text"
         value="title"

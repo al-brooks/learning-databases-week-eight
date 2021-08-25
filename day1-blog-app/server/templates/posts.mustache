@@ -7,10 +7,11 @@
     <title>Posts</title>
 </head>
 <body>
+    <a href="./">home page</a>
     <h1>Add a post!</h1>
     <form 
         method="POST" 
-        action="/add-post">
+        action="/posts/add-post">
         <input
             type="text"
             name="title"
@@ -27,7 +28,7 @@
     <ul>
         {{#posts}}
         <li>{{title}}: {{body}}
-        <form method="POST" action="/post-detail">
+        <form method="POST" action="/posts/post-detail">
             <input 
                 type="hidden"
                 value={{post_id}}
@@ -35,7 +36,7 @@
             />
             <button>update</button>
         </form>
-        <form method="POST" action="/delete-post">
+        <form method="POST" action="/posts/delete-post">
             <input 
                 type="hidden"
                 value={{post_id}}

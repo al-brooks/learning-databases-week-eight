@@ -7,45 +7,7 @@
     <title>Index</title>
 </head>
 <body>
-    <h1>Add a post!</h1>
-    <form 
-        method="POST" 
-        action="/add-post">
-        <input
-            type="text"
-            name="title"
-            placeholder="enter title"
-        />
-        <input
-            type="text"
-            name="body"
-            placeholder="enter post"
-        />
-       <button>Post</button>
-    </form>
-    <h1>List all posts:</h1>
-    <ul>
-        {{#posts}}
-        <li>{{title}}: {{body}}
-        <form method="POST" action="/post-detail">
-            <input 
-                type="hidden"
-                value={{post_id}}
-                name="post_id"
-            />
-            <button>update</button>
-        </form>
-        <form method="POST" action="/delete-post">
-            <input 
-                type="hidden"
-                value={{post_id}}
-                name="post_id"
-            />
-            <button>x</button>
-        </form>
-        </li>
-        {{/posts}}
-    </ul>
-    
+    <h1>Landing Page / Go Login</h1>
+    <a href="./posts">Posts Page</a>
 </body>
 </html>
