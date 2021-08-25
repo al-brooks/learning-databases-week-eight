@@ -6,7 +6,13 @@ const app = express();
 const session = require('express-session');
 // npm install mustache - express
 const mustacheExpress = require('mustache-express');
-const db = require('./database/database');
+// npm install pg-promise
+const pgp = require('pg-promise')();
+// set connection for pg-promise object
+const connectionString =
+  'postgres://otzxnfsj:DvGvZk9BrTYjSXmD9XFf6GT5VAlk69U-@chunee.db.elephantsql.com/otzxnfsj';
+// set database object
+global.db = pgp(connectionString);
 const postsRouter = require('./routers/posts');
 const usersRouter = require('./routers/users');
 
