@@ -1,21 +1,15 @@
-const PORT = 3000;
-// npm install express
 const express = require('express');
 const app = express();
-// npm install session-express
 const session = require('express-session');
-// npm install mustache - express
 const mustacheExpress = require('mustache-express');
-// npm install dotenv
 require('dotenv').config();
-// npm install pg-promise
+const authenticate = require('./authentication/authenticate');
 const pgp = require('pg-promise')();
-// set connection for pg-promise object
 const connectionString = process.env.DB_CONNECT;
-// set database object
 global.db = pgp(connectionString);
 const postsRouter = require('./routers/posts');
 const usersRouter = require('./routers/users');
+const PORT = 3000;
 
 // set express to parse body
 app.use(express.urlencoded({ extended: true }));
