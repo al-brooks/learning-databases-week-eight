@@ -1,12 +1,13 @@
-const express = require('express');
+global.express = require('express');
 const app = express();
-const session = require('express-session');
+global.session = require('express-session');
 const mustacheExpress = require('mustache-express');
 require('dotenv').config();
-const authenticate = require('./authentication/authenticate');
+global.authenticate = require('./authentication/authenticate');
 const pgp = require('pg-promise')();
 const connectionString = process.env.DB_CONNECT;
 global.db = pgp(connectionString);
+global.bcrypt = require('bcryptjs');
 const postsRouter = require('./routers/posts');
 const usersRouter = require('./routers/users');
 const PORT = 3000;
