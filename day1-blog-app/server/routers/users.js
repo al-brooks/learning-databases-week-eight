@@ -10,7 +10,8 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.get('/:userid', (req, res) => {
+// passes |
+router.get('/:userid', authenticate, (req, res) => {
   const user_id = req.params.userid;
 
   db.one(

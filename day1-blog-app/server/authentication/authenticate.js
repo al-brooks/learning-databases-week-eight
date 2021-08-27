@@ -3,10 +3,10 @@ const authenticate = (req, res, next) => {
     if (req.session.user_id) {
       next();
     } else {
-      res.render('login-signup', { message: 'Log in to continue' });
+      res.render('index', { message: 'Log in or Sign up to continue!' });
     }
   } else {
-    res.render('login-signup', { message: 'Log in to continue' });
+    res.render('index', { message: 'Log in or Sign up to continue!' });
   }
 };
 
