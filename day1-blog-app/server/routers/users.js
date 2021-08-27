@@ -2,12 +2,38 @@ const express = require('express');
 const router = express.Router();
 const authenticate = require('../authentication/authenticate');
 
+router.get('/signup', (req, res) => {
+  res.render('signup');
+});
+
 router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.get('/signup', (req, res) => {
-  res.render('signup');
+// passes |
+router.post('/login', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  db.one(
+    'SELECT user_id, user_name, user_password FROM blog_users WHERE user_name = $1',
+    [username]
+  )
+    .then((user) => {
+      bcrypt.compare(password, user.user_password, function (err, result) {
+        if (result) {
+          if (req.session) {
+            req.session.user_id = user.user_id;
+          }
+          res.send('Success');
+        } else {
+          res.send('Not Authenticated');
+        }
+      });
+    })
+    .catch((error) => {
+      res.send('User Not Found');
+    });
 });
 
 // passes |
