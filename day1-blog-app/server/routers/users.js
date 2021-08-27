@@ -40,7 +40,7 @@ router.post('/login', (req, res) => {
           if (req.session) {
             req.session.user_id = user.user_id;
           }
-          res.redirect(`/users/${user_id}`);
+          res.redirect(`/users/${user.user_id}`);
         } else {
           res.send('Not Authenticated');
         }
