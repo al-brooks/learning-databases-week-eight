@@ -10,6 +10,21 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+router.get('/:userid', (req, res) => {
+  const user_id = req.params.userid;
+
+  db.one(
+    'SELECT user_id, user_name, user_email FROM blog_users WHERE user_id = $1',
+    [user_id]
+  )
+    .then((user) => {
+      res.render('useraccount', { user: user });
+    })
+    .catch((error) => {
+      res.send('An error occurred');
+    });
+});
+
 // passes |
 router.post('/login', (req, res) => {
   const username = req.body.username;
@@ -25,7 +40,7 @@ router.post('/login', (req, res) => {
           if (req.session) {
             req.session.user_id = user.user_id;
           }
-          res.send('Success');
+          res.redirect(`/users/${user_id}`);
         } else {
           res.send('Not Authenticated');
         }
